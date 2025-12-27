@@ -294,6 +294,35 @@
         </div>
     </footer>
 
+    <!-- Rating Popup Modal -->
+    <div id="rating-popup" class="rating-popup">
+        <div class="rating-popup-content">
+            <button class="rating-popup-close" aria-label="Close popup">&times;</button>
+
+            <div id="rating-step-1" class="rating-step active">
+                <h3>How was your experience with Cragun Legal?</h3>
+                <p>We'd love to hear your feedback!</p>
+                <div class="star-rating">
+                    <span class="star" data-rating="1">&#9733;</span>
+                    <span class="star" data-rating="2">&#9733;</span>
+                    <span class="star" data-rating="3">&#9733;</span>
+                    <span class="star" data-rating="4">&#9733;</span>
+                    <span class="star" data-rating="5">&#9733;</span>
+                </div>
+                <p class="rating-hint">Click a star to rate</p>
+            </div>
+
+            <div id="rating-step-2" class="rating-step">
+                <h3>Thank you for your feedback!</h3>
+                <p id="rating-message"></p>
+                <div id="feedback-form" style="display: none;">
+                    <textarea id="feedback-text" placeholder="Please tell us how we can improve..." rows="4"></textarea>
+                    <button class="btn btn-primary" id="submit-feedback">Submit Feedback</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script src="js/main.js"></script>
 </body>

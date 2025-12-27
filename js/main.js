@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const subject = document.getElementById('subject').value;
+            const subjectSelect = document.getElementById('subject').value;
             const message = document.getElementById('message').value.trim();
 
             // Validation
@@ -86,9 +86,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            // If validation passes, show success message
-            // In production, you would submit to a server here
-            alert('Thank you for contacting Cragun Legal! We will respond to your inquiry within 24 hours.\n\nFor immediate assistance, please call (801) 610-9669.');
+            // Create mailto link with form data
+            const emailSubject = encodeURIComponent(`New Contact Form Submission - ${subjectSelect}`);
+            const emailBody = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Email: ${email}\n` +
+                `Phone: ${phone}\n` +
+                `Subject: ${subjectSelect}\n\n` +
+                `Message:\n${message}`
+            );
+            const mailtoLink = `mailto:jake@cragunlegal.com?subject=${emailSubject}&body=${emailBody}`;
+
+            // Open email client
+            window.location.href = mailtoLink;
+
+            // Show success message
+            alert('Thank you for contacting Cragun Legal! Your email client will open to send your message.\n\nFor immediate assistance, please call (801) 610-9669.');
 
             // Reset form
             contactForm.reset();
@@ -143,4 +156,144 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
+    // Rating Popup Functionality
+    const ratingPopup = document.getElementById('rating-popup');
+    const ratingStep1 = document.getElementById('rating-step-1');
+    const ratingStep2 = document.getElementById('rating-step-2');
+    const ratingMessage = document.getElementById('rating-message');
+    const feedbackForm = document.getElementById('feedback-form');
+    const feedbackText = document.getElementById('feedback-text');
+    const stars = document.querySelectorAll('.star');
+    const closePopup = document.querySelector('.rating-popup-close');
+
+    // Configuration
+    const GOOGLE_REVIEW_URL = 'YOUR_GOOGLE_REVIEW_URL_HERE'; // Replace with your actual Google review link
+    const FEEDBACK_EMAIL = 'jake@cragunlegal.com'; // Email for feedback
+
+    let selectedRating = 0;
+
+    // Show rating popup after 30 seconds (adjustable)
+    function showRatingPopup() {
+        // Check if user has already seen the popup this session
+        if (!sessionStorage.getItem('ratingPopupShown')) {
+            setTimeout(() => {
+                ratingPopup.classList.add('active');
+                sessionStorage.setItem('ratingPopupShown', 'true');
+            }, 30000); // 30 seconds - adjust as needed
+        }
+    }
+
+    // Initialize popup timer
+    showRatingPopup();
+
+    // Close popup
+    closePopup.addEventListener('click', () => {
+        ratingPopup.classList.remove('active');
+        resetPopup();
+    });
+
+    // Close popup when clicking outside
+    ratingPopup.addEventListener('click', (e) => {
+        if (e.target === ratingPopup) {
+            ratingPopup.classList.remove('active');
+            resetPopup();
+        }
+    });
+
+    // Star hover effect
+    stars.forEach((star, index) => {
+        star.addEventListener('mouseenter', () => {
+            stars.forEach((s, i) => {
+                if (i <= index) {
+                    s.classList.add('hovered');
+                } else {
+                    s.classList.remove('hovered');
+                }
+            });
+        });
+
+        star.addEventListener('mouseleave', () => {
+            stars.forEach(s => s.classList.remove('hovered'));
+        });
+
+        // Star click handler
+        star.addEventListener('click', () => {
+            selectedRating = parseInt(star.getAttribute('data-rating'));
+
+            // Update star display
+            stars.forEach((s, i) => {
+                if (i < selectedRating) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+
+            // Handle rating
+            handleRating(selectedRating);
+        });
+    });
+
+    function handleRating(rating) {
+        // Hide step 1, show step 2
+        ratingStep1.classList.remove('active');
+        ratingStep2.classList.add('active');
+
+        if (rating === 5) {
+            // 5 stars - redirect to Google Reviews
+            ratingMessage.textContent = "We're thrilled you had a great experience! We'd love if you could share your review on Google.";
+
+            setTimeout(() => {
+                if (GOOGLE_REVIEW_URL !== 'YOUR_GOOGLE_REVIEW_URL_HERE') {
+                    window.open(GOOGLE_REVIEW_URL, '_blank');
+                } else {
+                    alert('Please configure your Google Review URL in the JavaScript file.');
+                }
+                ratingPopup.classList.remove('active');
+                resetPopup();
+            }, 2000);
+        } else {
+            // Less than 5 stars - show feedback form
+            ratingMessage.textContent = "Thank you for your feedback. We'd love to hear how we can improve.";
+            feedbackForm.style.display = 'block';
+        }
+    }
+
+    // Submit feedback
+    document.getElementById('submit-feedback').addEventListener('click', () => {
+        const feedback = feedbackText.value.trim();
+
+        if (feedback === '') {
+            alert('Please enter your feedback before submitting.');
+            return;
+        }
+
+        // Create mailto link with feedback
+        const subject = encodeURIComponent(`Feedback - ${selectedRating} Star Rating`);
+        const body = encodeURIComponent(`Rating: ${selectedRating} stars\n\nFeedback:\n${feedback}`);
+        const mailtoLink = `mailto:${FEEDBACK_EMAIL}?subject=${subject}&body=${body}`;
+
+        // Open email client
+        window.location.href = mailtoLink;
+
+        // Show thank you message
+        ratingMessage.textContent = "Thank you for your valuable feedback!";
+        feedbackForm.style.display = 'none';
+
+        // Close popup after 2 seconds
+        setTimeout(() => {
+            ratingPopup.classList.remove('active');
+            resetPopup();
+        }, 2000);
+    });
+
+    function resetPopup() {
+        selectedRating = 0;
+        stars.forEach(s => s.classList.remove('active', 'hovered'));
+        ratingStep1.classList.add('active');
+        ratingStep2.classList.remove('active');
+        feedbackForm.style.display = 'none';
+        feedbackText.value = '';
+    }
 });
