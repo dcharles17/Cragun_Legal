@@ -40,71 +40,68 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form Validation
+    // Web3Forms Contact Form Handler
     const contactForm = document.getElementById('contact-form');
+    const formResult = document.getElementById('form-result');
 
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Get form values
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const subjectSelect = document.getElementById('subject').value;
-            const message = document.getElementById('message').value.trim();
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
 
-            // Validation
-            let isValid = true;
-            let errorMessage = '';
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
 
-            if (name === '') {
-                isValid = false;
-                errorMessage += 'Please enter your name.\n';
+            // Get form data
+            const formData = new FormData(contactForm);
+
+            try {
+                // Submit to Web3Forms
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Show success message
+                    if (formResult) {
+                        formResult.style.display = 'block';
+                        formResult.style.color = '#2d5a7b';
+                        formResult.style.padding = '1rem';
+                        formResult.style.backgroundColor = '#e6f3f0';
+                        formResult.style.borderRadius = '5px';
+                        formResult.textContent = 'Thank you for contacting Cragun Legal! We will respond to your inquiry within 24 hours.';
+                    } else {
+                        alert('Thank you for contacting Cragun Legal! We will respond to your inquiry within 24 hours.\n\nFor immediate assistance, please call (801) 610-9669.');
+                    }
+
+                    // Reset form
+                    contactForm.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Show error message
+                if (formResult) {
+                    formResult.style.display = 'block';
+                    formResult.style.color = '#c53030';
+                    formResult.style.padding = '1rem';
+                    formResult.style.backgroundColor = '#fff5f5';
+                    formResult.style.borderRadius = '5px';
+                    formResult.textContent = 'There was an error sending your message. Please call us at (801) 610-9669.';
+                } else {
+                    alert('There was an error sending your message. Please call us at (801) 610-9669.');
+                }
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
             }
-
-            if (email === '') {
-                isValid = false;
-                errorMessage += 'Please enter your email.\n';
-            } else if (!isValidEmail(email)) {
-                isValid = false;
-                errorMessage += 'Please enter a valid email address.\n';
-            }
-
-            if (phone === '') {
-                isValid = false;
-                errorMessage += 'Please enter your phone number.\n';
-            }
-
-            if (message === '') {
-                isValid = false;
-                errorMessage += 'Please enter a message.\n';
-            }
-
-            if (!isValid) {
-                alert(errorMessage);
-                return false;
-            }
-
-            // Create mailto link with form data
-            const emailSubject = encodeURIComponent(`New Contact Form Submission - ${subjectSelect}`);
-            const emailBody = encodeURIComponent(
-                `Name: ${name}\n` +
-                `Email: ${email}\n` +
-                `Phone: ${phone}\n` +
-                `Subject: ${subjectSelect}\n\n` +
-                `Message:\n${message}`
-            );
-            const mailtoLink = `mailto:jake@cragunlegal.com?subject=${emailSubject}&body=${emailBody}`;
-
-            // Open email client
-            window.location.href = mailtoLink;
-
-            // Show success message
-            alert('Thank you for contacting Cragun Legal! Your email client will open to send your message.\n\nFor immediate assistance, please call (801) 610-9669.');
-
-            // Reset form
-            contactForm.reset();
 
             return false;
         });
@@ -261,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Submit feedback
-    document.getElementById('submit-feedback').addEventListener('click', () => {
+    document.getElementById('submit-feedback').addEventListener('click', async () => {
         const feedback = feedbackText.value.trim();
 
         if (feedback === '') {
@@ -269,23 +266,45 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Create mailto link with feedback
-        const subject = encodeURIComponent(`Feedback - ${selectedRating} Star Rating`);
-        const body = encodeURIComponent(`Rating: ${selectedRating} stars\n\nFeedback:\n${feedback}`);
-        const mailtoLink = `mailto:${FEEDBACK_EMAIL}?subject=${subject}&body=${body}`;
+        const submitBtn = document.getElementById('submit-feedback');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
 
-        // Open email client
-        window.location.href = mailtoLink;
+        try {
+            // Prepare form data for Web3Forms
+            const formData = new FormData();
+            formData.append('access_key', 'b240f14c-1f9e-4216-a0e4-a78f65f93600');
+            formData.append('subject', `Feedback - ${selectedRating} Star Rating`);
+            formData.append('message', `Rating: ${selectedRating} stars\n\nFeedback:\n${feedback}`);
+            formData.append('from_name', 'Cragun Legal Rating System');
 
-        // Show thank you message
-        ratingMessage.textContent = "Thank you for your valuable feedback!";
-        feedbackForm.style.display = 'none';
+            // Submit to Web3Forms
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
 
-        // Close popup after 2 seconds
-        setTimeout(() => {
-            ratingPopup.classList.remove('active');
-            resetPopup();
-        }, 2000);
+            const data = await response.json();
+
+            if (data.success) {
+                // Show thank you message
+                ratingMessage.textContent = "Thank you for your valuable feedback!";
+                feedbackForm.style.display = 'none';
+
+                // Close popup after 2 seconds
+                setTimeout(() => {
+                    ratingPopup.classList.remove('active');
+                    resetPopup();
+                }, 2000);
+            } else {
+                throw new Error('Submission failed');
+            }
+        } catch (error) {
+            alert('There was an error submitting your feedback. Please try again or contact us at (801) 610-9669.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }
     });
 
     function resetPopup() {
