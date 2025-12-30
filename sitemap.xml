@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+    <!-- Home Page - Highest Priority -->
+    <url>
+        <loc>https://www.cragunlegal.com/</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://www.cragunlegal.com/images/logo.png</image:loc>
+            <image:title>Cragun Legal - Criminal Defense and Family Law Attorney</image:title>
+        </image:image>
+    </url>
+
+    <!-- Practice Areas Overview -->
+    <url>
+        <loc>https://www.cragunlegal.com/practice-areas.html</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Primary Practice Area Pages - High Priority -->
+    <url>
+        <loc>https://www.cragunlegal.com/criminal-defense.html</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.cragunlegal.com/family-law.html</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.cragunlegal.com/estate-planning.html</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- About Page -->
+    <url>
+        <loc>https://www.cragunlegal.com/about.html</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://www.cragunlegal.com/images/jake-cragun.jpg</image:loc>
+            <image:title>Jake B. Cragun - Attorney at Law</image:title>
+        </image:image>
+    </url>
+
+    <!-- Contact Page -->
+    <url>
+        <loc>https://www.cragunlegal.com/contact.html</loc>
+        <lastmod>2024-12-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>

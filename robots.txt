@@ -1,0 +1,34 @@
+# robots.txt for Cragun Legal - www.cragunlegal.com
+# Optimized for search engine crawling
+
+User-agent: *
+Allow: /
+
+# Allow all major search engine bots full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Disallow crawling of administrative/utility files
+Disallow: /cgi-bin/
+Disallow: /.git/
+Disallow: /.claude/
+
+# Disallow crawling of form submission endpoints
+Disallow: /thank-you.html
+
+# Allow CSS and JS for rendering
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Crawl delay (polite crawling - 1 second between requests)
+Crawl-delay: 1
+
+# Sitemap location (critical for SEO)
+Sitemap: https://www.cragunlegal.com/sitemap.xml

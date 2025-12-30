@@ -6,6 +6,21 @@
     <meta name="description" content="Contact Cragun Legal for family law and estate planning services in Ogden, Utah. Free consultation. Offices in Ogden and Morgan. Call (801) 610-9669.">
     <meta name="keywords" content="contact family law attorney Ogden, law office Weber County, legal consultation Utah">
 
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Cragun Legal | Ogden & Morgan Utah Law Firm">
+    <meta property="og:description" content="Free consultation for family law, criminal defense, and estate planning. Offices in Ogden and Morgan, Utah.">
+    <meta property="og:url" content="https://www.cragunlegal.com/contact.html">
+    <meta property="og:image" content="https://www.cragunlegal.com/images/logo.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Contact Cragun Legal | Ogden & Morgan Utah Law Firm">
+    <meta name="twitter:description" content="Free consultation for family law, criminal defense, and estate planning.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.cragunlegal.com/contact.html">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="apple-touch-icon" href="images/favicon-180.png">
@@ -19,6 +34,76 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Schema Markup - FAQPage for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "Do you offer free consultations?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we provide free initial consultations to discuss your legal matter and explain your options."
+            }
+        },{
+            "@type": "Question",
+            "name": "How quickly will you respond to my inquiry?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We typically respond to all inquiries within 24 hours during business days."
+            }
+        },{
+            "@type": "Question",
+            "name": "What should I bring to my consultation?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Bring any relevant documents related to your legal matter, such as court papers, contracts, or financial records. A list of questions is also helpful."
+            }
+        },{
+            "@type": "Question",
+            "name": "Do you handle cases outside of Weber, Morgan, and Davis Counties?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "While we primarily serve these three counties, we may be able to assist with cases in neighboring areas. Contact us to discuss your specific situation."
+            }
+        },{
+            "@type": "Question",
+            "name": "What are your fees?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Legal fees vary depending on the type and complexity of your case. We'll discuss fee structures during your initial consultation."
+            }
+        },{
+            "@type": "Question",
+            "name": "Can you guarantee results?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "While we cannot guarantee specific outcomes, we commit to providing dedicated, knowledgeable representation to pursue the best possible result for your case."
+            }
+        }]
+    }
+    </script>
+
+    <!-- Schema Markup - BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.cragunlegal.com"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contact",
+            "item": "https://www.cragunlegal.com/contact.html"
+        }]
+    }
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -64,6 +149,9 @@
                     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
                         <!-- Web3Forms Access Key - Get yours at https://web3forms.com -->
                         <input type="hidden" name="access_key" value="b240f14c-1f9e-4216-a0e4-a78f65f93600">
+
+                        <!-- Specify recipient email -->
+                        <input type="hidden" name="to_email" value="jake@cragunlegal.com">
 
                         <!-- Redirect after successful submission -->
                         <input type="hidden" name="redirect" value="https://cragunlegal.com/thank-you.html">
@@ -247,6 +335,7 @@
                 <div class="footer-section">
                     <h3>Practice Areas</h3>
                     <ul class="footer-links">
+                        <li><a href="criminal-defense.html">Criminal Defense</a></li>
                         <li><a href="family-law.html">Family Law</a></li>
                         <li><a href="estate-planning.html">Estate Planning</a></li>
                         <li><a href="practice-areas.html">Business Development</a></li>
