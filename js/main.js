@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const closePopup = document.querySelector('.rating-popup-close');
 
     // Configuration
-    const GOOGLE_REVIEW_URL = 'YOUR_GOOGLE_REVIEW_URL_HERE'; // Replace with your actual Google review link
+    const GOOGLE_REVIEW_URL = 'https://g.page/r/Cfi6hbdKoBrfEAI/review'; // Google Business Profile review link
     const FEEDBACK_EMAIL = 'jake@cragunlegal.com'; // Email for feedback
 
     let selectedRating = 0;
