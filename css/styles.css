@@ -229,6 +229,14 @@ img {
     text-align: center;
 }
 
+.hero-estate {
+    background: linear-gradient(rgba(26, 58, 82, 0.82), rgba(26, 58, 82, 0.86)), url('../images/estate-planning-hero.png');
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding: 120px 0;
+}
+
 .hero h1 {
     color: var(--white);
     font-size: 3rem;
