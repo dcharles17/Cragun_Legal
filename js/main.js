@@ -203,6 +203,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (data.success) {
+                    // Also submit to Netlify for Dillon's tracking
+                    var netlifyData = new URLSearchParams();
+                    netlifyData.append('form-name', 'contact-tracking');
+                    netlifyData.append('name', formData.get('name') || '');
+                    netlifyData.append('email', formData.get('email') || '');
+                    netlifyData.append('phone', formData.get('phone') || '');
+                    netlifyData.append('subject', formData.get('subject') || '');
+                    netlifyData.append('message', formData.get('message') || '');
+                    netlifyData.append('timestamp', new Date().toLocaleString());
+                    fetch('/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: netlifyData.toString()
+                    }).catch(function() {});
+
                     if (formResult) {
                         formResult.style.display = 'block';
                         formResult.style.color = '#2d5a7b';
@@ -237,6 +252,22 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         });
     }
+
+    // ======= Call Button Click Tracking =======
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            var formData = new URLSearchParams();
+            formData.append('form-name', 'call-tracking');
+            formData.append('page', window.location.pathname);
+            formData.append('timestamp', new Date().toLocaleString());
+
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            }).catch(function() {});
+        });
+    });
 
     // ======= Email Validation Helper =======
     function isValidEmail(email) {
@@ -347,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Submit feedback
+    // Submit feedback via Web3Forms
     const submitFeedbackBtn = document.getElementById('submit-feedback');
     if (submitFeedbackBtn) {
         submitFeedbackBtn.addEventListener('click', async () => {
