@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ======= Active Navigation Highlight =======
+    // ======= Active Navigation Highlight ======
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navItems = document.querySelectorAll('.nav-link');
 
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     showRatingPopup();
 
-    // Close popup
+    // Close the popup
     if (closePopup) {
         closePopup.addEventListener('click', () => {
             ratingPopup.classList.remove('active');
