@@ -141,6 +141,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ======= Google Reviews Marquee =======
+    const reviewsTrack = document.querySelector('.reviews-track');
+
+    if (reviewsTrack) {
+        const group = reviewsTrack.querySelector('.reviews-group');
+        const originals = Array.from(group.children);
+
+        // Repeat cards until one group is wider than the screen, then
+        // duplicate the whole group so the -50% loop is seamless
+        let guard = 0;
+        while (group.scrollWidth < window.innerWidth && guard < 10) {
+            originals.forEach(card => {
+                const clone = card.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                group.appendChild(clone);
+            });
+            guard++;
+        }
+
+        const groupClone = group.cloneNode(true);
+        groupClone.setAttribute('aria-hidden', 'true');
+        reviewsTrack.appendChild(groupClone);
+
+        // Keep speed consistent regardless of how many reviews there are
+        const pxPerSecond = 40;
+        reviewsTrack.style.animationDuration = (group.scrollWidth / pxPerSecond) + 's';
+        reviewsTrack.classList.add('is-animating');
+    }
+
     // ======= Smooth Scrolling for Anchor Links =======
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {

@@ -607,6 +607,147 @@ img {
     color: var(--accent-gold);
 }
 
+/* ======= Google Reviews Marquee ======= */
+.testimonials h2 {
+    margin-bottom: 1rem;
+}
+
+.reviews-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.reviews-badge svg {
+    width: 22px;
+    height: 22px;
+}
+
+.reviews-marquee {
+    overflow: hidden;
+    padding: 0.75rem 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.reviews-track {
+    display: flex;
+    width: max-content;
+}
+
+.reviews-track.is-animating {
+    animation: reviews-scroll 60s linear infinite;
+}
+
+.reviews-marquee:hover .reviews-track {
+    animation-play-state: paused;
+}
+
+.reviews-group {
+    display: flex;
+}
+
+@keyframes reviews-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.review-card {
+    flex: 0 0 360px;
+    margin-right: 1.5rem;
+    padding: 1.75rem;
+    background-color: var(--white);
+    color: var(--dark-text);
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.review-avatar {
+    flex: 0 0 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: var(--primary-navy);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+.review-author {
+    font-weight: 700;
+    color: var(--primary-navy);
+    font-size: 0.95rem;
+}
+
+.review-stars {
+    color: #fbbc04;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.review-google-icon {
+    width: 22px;
+    height: 22px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.review-text {
+    line-height: 1.7;
+    font-size: 0.95rem;
+    color: var(--secondary-gray);
+}
+
+.reviews-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 767px) {
+    .review-card {
+        flex-basis: 280px;
+        margin-right: 1rem;
+        padding: 1.4rem;
+    }
+}
+
+/* Reduced motion: no auto-scroll, let users swipe/scroll instead */
+@media (prefers-reduced-motion: reduce) {
+    .reviews-marquee {
+        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .reviews-track.is-animating {
+        animation: none;
+    }
+
+    .reviews-track > [aria-hidden="true"],
+    .reviews-group > [aria-hidden="true"] {
+        display: none;
+    }
+}
+
 /* ======= Contact CTA Section ======= */
 .contact-cta {
     background: linear-gradient(135deg, var(--accent-gold) 0%, #b8964d 50%, #a6853e 100%);
